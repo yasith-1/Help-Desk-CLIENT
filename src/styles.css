@@ -1,0 +1,152 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   HelpDesk — Shadcn-style design tokens (light + dark)
+   ============================================================ */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 5.9% 10%;
+
+    --sidebar: 240 6% 97%;
+    --sidebar-foreground: 240 5% 34%;
+    --brand: 217 91% 60%;
+    --brand-foreground: 0 0% 100%;
+
+    --chart-1: 217 91% 60%;
+    --chart-2: 160 84% 39%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 0 84% 60%;
+
+    --radius: 0.65rem;
+  }
+
+  .dark {
+    --background: 240 10% 4%;
+    --foreground: 0 0% 95%;
+    --card: 240 8% 7%;
+    --card-foreground: 0 0% 95%;
+    --popover: 240 8% 7%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 6% 10%;
+    --secondary: 240 5% 13%;
+    --secondary-foreground: 0 0% 95%;
+    --muted: 240 5% 13%;
+    --muted-foreground: 240 5% 60%;
+    --accent: 240 5% 15%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5% 14%;
+    --input: 240 5% 16%;
+    --ring: 240 5% 70%;
+
+    --sidebar: 240 10% 5%;
+    --sidebar-foreground: 240 5% 65%;
+    --brand: 217 91% 60%;
+    --brand-foreground: 0 0% 100%;
+  }
+
+  * { @apply border-border; }
+  html { -webkit-font-smoothing: antialiased; }
+  body { @apply bg-background text-foreground; font-feature-settings: "cv11","ss01"; }
+
+  /* Scrollbars */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 999px; border: 2px solid hsl(var(--background)); }
+  ::-webkit-scrollbar-track { background: transparent; }
+}
+
+/* ============================================================
+   Components
+   ============================================================ */
+@layer components {
+  /* Consistent page container — same spacing on every screen (responsive padding) */
+  .page-wrap { @apply w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-5 sm:py-6; }
+
+  .card { @apply rounded-xl border border-border bg-card text-card-foreground shadow-sm; }
+
+  /* Buttons */
+  .btn { @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-colors
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background
+          disabled:pointer-events-none disabled:opacity-50 h-9 px-4; }
+  .btn-primary { @apply btn bg-primary text-primary-foreground hover:bg-primary/90; }
+  .btn-secondary { @apply btn bg-secondary text-secondary-foreground hover:bg-secondary/80; }
+  .btn-outline { @apply btn border border-border bg-background shadow-sm hover:bg-accent hover:text-accent-foreground; }
+  .btn-outline-danger { @apply btn border border-destructive/40 text-destructive bg-background shadow-sm hover:bg-destructive/10; }
+  .btn-ghost { @apply btn hover:bg-accent hover:text-accent-foreground; }
+  .btn-destructive { @apply btn bg-destructive text-destructive-foreground hover:bg-destructive/90; }
+  .btn-brand { @apply btn bg-brand text-brand-foreground hover:bg-brand/90; }
+  .btn-sm { @apply h-8 px-3 text-xs; }
+  .btn-icon { @apply inline-flex items-center justify-center rounded-lg h-9 w-9 transition-colors hover:bg-accent hover:text-accent-foreground
+          focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring; }
+
+  /* Form controls */
+  .input, .select, .textarea { @apply flex w-full rounded-lg border border-input bg-background px-3 py-2 text-sm shadow-sm
+          placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+          disabled:cursor-not-allowed disabled:opacity-50; }
+  .input, .select { @apply h-9; }
+  .textarea { @apply min-h-[96px] resize-y; }
+  .label { @apply text-sm font-medium leading-none mb-1.5 block; }
+  .field-err { @apply text-xs text-destructive mt-1.5; }
+
+  /* Badge / pill */
+  .pill { @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-medium; }
+  .badge-outline { @apply pill border-border text-muted-foreground; }
+
+  /* status pills */
+  .st-Open       { @apply pill border-blue-500/20 bg-blue-500/10 text-blue-600 dark:text-blue-400; }
+  .st-InProgress { @apply pill border-violet-500/20 bg-violet-500/10 text-violet-600 dark:text-violet-400; }
+  .st-OnHold     { @apply pill border-zinc-500/20 bg-zinc-500/10 text-zinc-600 dark:text-zinc-300; }
+  .st-Resolved   { @apply pill border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400; }
+  .st-Closed     { @apply pill border-zinc-500/20 bg-zinc-500/10 text-zinc-500 dark:text-zinc-400; }
+  .st-Reopened   { @apply pill border-rose-500/20 bg-rose-500/10 text-rose-600 dark:text-rose-400; }
+
+  /* priority pills */
+  .pr-Low    { @apply pill border-slate-500/20 bg-slate-500/10 text-slate-600 dark:text-slate-300; }
+  .pr-Medium { @apply pill border-sky-500/20 bg-sky-500/10 text-sky-600 dark:text-sky-400; }
+  .pr-High   { @apply pill border-amber-500/20 bg-amber-500/10 text-amber-600 dark:text-amber-400; }
+  .pr-Urgent { @apply pill border-red-500/25 bg-red-500/10 text-red-600 dark:text-red-400; }
+
+  .pill-overdue { @apply pill border-red-500/30 bg-red-500/15 text-red-600 dark:text-red-400; }
+  .pill-ok { @apply pill border-emerald-500/20 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400; }
+
+  /* Tables */
+  .tbl { @apply w-full text-sm; }
+  .tbl thead th { @apply text-left font-medium text-muted-foreground text-xs uppercase tracking-wide px-4 py-3 border-b border-border; }
+  .tbl tbody td { @apply px-4 py-3 border-b border-border/70 align-middle; }
+  .tbl tbody tr:last-child td { @apply border-b-0; }
+  .tbl tbody tr { @apply transition-colors; }
+  .tbl.rowhover tbody tr:hover { @apply bg-accent/60 cursor-pointer; }
+
+  /* Misc */
+  .skeleton { @apply animate-pulse rounded-md bg-muted; }
+  .muted { @apply text-muted-foreground; }
+  .section-title { @apply text-sm font-semibold; }
+  .spinner { @apply mx-auto my-10 h-8 w-8 animate-spin rounded-full border-2 border-muted border-t-foreground; }
+
+  .seg { @apply inline-flex items-center rounded-lg bg-muted p-0.5; }
+  .seg > button { @apply rounded-md px-3 h-7 text-xs font-medium text-muted-foreground transition-colors; }
+  .seg > button.active { @apply bg-background text-foreground shadow-sm; }
+}
