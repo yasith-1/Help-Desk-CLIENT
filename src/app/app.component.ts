@@ -7,6 +7,7 @@ import { ThemeService } from './services/theme.service';
 import { ToastService } from './services/toast.service';
 import { ConfirmService } from './services/confirm.service';
 import { DashboardService } from './services/dashboard.service';
+import { ProfileService } from './services/profile.service';
 import { AvatarComponent } from './components/ui/avatar.component';
 
 @Component({
@@ -67,13 +68,14 @@ import { AvatarComponent } from './components/ui/avatar.component';
                 @if (alerts() > 0) { <span class="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 rounded-full bg-brand text-brand-foreground text-[10px] font-bold grid place-items-center">{{ alerts() }}</span> }
               </button>
               <span class="hidden md:inline-flex pill border-border text-muted-foreground">📅 {{ today }}</span>
-              <div class="flex items-center gap-2 pl-2 sm:border-l border-border">
-                <ui-avatar [name]="auth.fullName()" size="sm" />
+              <a routerLink="/profile" title="My profile"
+                 class="flex items-center gap-2 pl-2 sm:border-l border-border rounded-lg hover:bg-accent transition-colors py-1 pr-1 sm:pr-2">
+                <ui-avatar [name]="auth.fullName()" [imageUrl]="avatarSrc()" size="sm" />
                 <div class="hidden sm:block leading-tight">
                   <div class="text-sm font-medium">{{ auth.fullName() }}</div>
                   <div class="text-[11px] text-muted-foreground">{{ auth.role() }}</div>
                 </div>
-              </div>
+              </a>
             </div>
           </header>
 
@@ -127,7 +129,10 @@ export class AppComponent {
   toast = inject(ToastService);
   confirm = inject(ConfirmService);
   private dash = inject(DashboardService);
+  private profile = inject(ProfileService);
   private router = inject(Router);
+
+  avatarSrc = () => this.profile.avatarUrl(this.auth.avatarUrl());
 
   search = '';
   alerts = signal(0);
@@ -158,6 +163,7 @@ export class AppComponent {
   title() {
     const u = this.router.url.split('?')[0];
     if (u.startsWith('/dashboard')) return 'Dashboard';
+    if (u.startsWith('/profile')) return 'My Profile';
     if (u === '/tickets/new') return 'New Ticket';
     if (u.endsWith('/edit')) return 'Edit Ticket';
     if (/^\/tickets\/\d+/.test(u)) return 'Ticket Details';

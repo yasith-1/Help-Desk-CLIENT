@@ -7,15 +7,22 @@ const PALETTE = ['#6366f1','#0ea5e9','#10b981','#f59e0b','#ef4444','#8b5cf6','#e
   selector: 'ui-avatar',
   standalone: true,
   template: `
-    <span class="inline-flex items-center justify-center rounded-full font-semibold text-white ring-2 ring-background shrink-0"
-          [style.width.px]="px()" [style.height.px]="px()" [style.background]="color()" [style.fontSize.px]="px()*0.4">
-      {{ initials() }}
-    </span>
+    @if (src()) {
+      <img [src]="src()" [style.width.px]="px()" [style.height.px]="px()" alt="avatar"
+           class="rounded-full object-cover ring-2 ring-background shrink-0" (error)="src.set('')" />
+    } @else {
+      <span class="inline-flex items-center justify-center rounded-full font-semibold text-white ring-2 ring-background shrink-0"
+            [style.width.px]="px()" [style.height.px]="px()" [style.background]="color()" [style.fontSize.px]="px()*0.4">
+        {{ initials() }}
+      </span>
+    }
   `
 })
 export class AvatarComponent {
   private _name = signal('');
+  src = signal('');
   @Input() set name(v: string | null | undefined) { this._name.set(v ?? ''); }
+  @Input() set imageUrl(v: string | null | undefined) { this.src.set(v ?? ''); }
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
 
   px = computed(() => ({ sm: 26, md: 34, lg: 44 }[this.size]));

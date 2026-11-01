@@ -9,6 +9,9 @@ export const routes: Routes = [
   { path: 'dashboard', canActivate: [authGuard],
     loadComponent: () => import('./components/dashboard.component').then(m => m.DashboardComponent) },
 
+  { path: 'profile', canActivate: [authGuard],
+    loadComponent: () => import('./components/profile.component').then(m => m.ProfileComponent) },
+
   { path: 'tickets', canActivate: [authGuard],
     loadComponent: () => import('./components/ticket-list.component').then(m => m.TicketListComponent) },
   { path: 'tickets/new', canActivate: [authGuard],

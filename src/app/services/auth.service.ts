@@ -14,6 +14,7 @@ export class AuthService {
   fullName = signal<string>(localStorage.getItem('fullName') ?? '');
   username = signal<string>(localStorage.getItem('username') ?? '');
   role = signal<Role>(localStorage.getItem('role') ?? '');
+  avatarUrl = signal<string | null>(localStorage.getItem('avatarUrl') || null);
   permissions = signal<string[]>(this.loadPerms());
 
   // Permission-driven — custom roles support (hard-coded role names නෑ)
@@ -50,14 +51,25 @@ export class AuthService {
     localStorage.setItem('fullName', r.fullName);
     localStorage.setItem('username', r.username);
     localStorage.setItem('role', r.role);
+    if (r.avatarUrl) localStorage.setItem('avatarUrl', r.avatarUrl); else localStorage.removeItem('avatarUrl');
     localStorage.setItem('permissions', JSON.stringify(r.permissions ?? []));
     this.userId.set(r.userId); this.fullName.set(r.fullName);
-    this.username.set(r.username); this.role.set(r.role); this.permissions.set(r.permissions ?? []);
+    this.username.set(r.username); this.role.set(r.role);
+    this.avatarUrl.set(r.avatarUrl ?? null); this.permissions.set(r.permissions ?? []);
+  }
+
+  // Profile page එකේ name/avatar වෙනස් වුණාම header එකත් update කරන්න (re-login නැතුව)
+  updateProfile(fullName: string, avatarUrl: string | null) {
+    this.fullName.set(fullName);
+    localStorage.setItem('fullName', fullName);
+    this.avatarUrl.set(avatarUrl);
+    if (avatarUrl) localStorage.setItem('avatarUrl', avatarUrl); else localStorage.removeItem('avatarUrl');
   }
 
   logout() {
     localStorage.clear();
-    this.userId.set(0); this.fullName.set(''); this.username.set(''); this.role.set(''); this.permissions.set([]);
+    this.userId.set(0); this.fullName.set(''); this.username.set(''); this.role.set('');
+    this.avatarUrl.set(null); this.permissions.set([]);
   }
 
   getToken(): string | null { return localStorage.getItem('token'); }

@@ -20,8 +20,16 @@ export interface LoginRequest { username: string; password: string; }
 export interface RegisterRequest { fullName: string; email: string; username: string; password: string; }
 export interface AuthResponse {
   token: string; userId: number; fullName: string; username: string; role: Role;
-  permissions: string[]; expiresAt: string;
+  avatarUrl: string | null; permissions: string[]; expiresAt: string;
 }
+
+// ---- Profile (self-service) ----
+export interface Profile {
+  id: number; fullName: string; email: string; username: string;
+  role: Role; avatarUrl: string | null; createdAt: string;
+}
+export interface UpdateProfileRequest { fullName: string; email: string; }
+export interface ChangePasswordRequest { currentPassword: string; newPassword: string; }
 
 // ---- Tickets ----
 export interface TicketListItem {
@@ -68,7 +76,7 @@ export interface CategoryRequest {
 // ---- Users ----
 export interface User {
   id: number; fullName: string; email: string; username: string; role: Role;
-  isActive: boolean; createdAt: string;
+  isActive: boolean; avatarUrl: string | null; createdAt: string;
 }
 export interface AgentOption { id: number; fullName: string; role: Role; }
 export interface CreateUserRequest {
