@@ -33,6 +33,7 @@ import { AvatarComponent } from './components/ui/avatar.component';
                 @case ('users') { <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></svg> }
                 @case ('tag') { <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0l-7-7a2 2 0 01-.6-1.4V5a2 2 0 012-2h6.8a2 2 0 011.4.6l7.4 7.4a2 2 0 010 2.8z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg> }
                 @case ('shield') { <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg> }
+                @case ('report') { <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/><path d="M8 13v4M12 11v6M16 14v3"/></svg> }
               }
             </a>
           }
@@ -147,6 +148,7 @@ export class AppComponent {
     if (this.auth.has('users.manage')) base.push({ path: '/admin/users', label: 'Users', key: 'users' });
     if (this.auth.has('roles.manage')) base.push({ path: '/admin/roles', label: 'Roles & Permissions', key: 'shield' });
     if (this.auth.has('categories.manage')) base.push({ path: '/admin/categories', label: 'Categories', key: 'tag' });
+    if (this.auth.has('reports.export')) base.push({ path: '/admin/reports', label: 'Reports', key: 'report' });
     return base;
   };
 
@@ -170,6 +172,7 @@ export class AppComponent {
     if (u.startsWith('/tickets')) return 'Tickets';
     if (u.startsWith('/admin/users')) return 'User Management';
     if (u.startsWith('/admin/categories')) return 'Categories';
+    if (u.startsWith('/admin/reports')) return 'Reports';
     return 'HelpDesk';
   }
 

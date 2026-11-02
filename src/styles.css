@@ -7,6 +7,7 @@
    ============================================================ */
 @layer base {
   :root {
+    color-scheme: light;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
@@ -42,6 +43,7 @@
   }
 
   .dark {
+    color-scheme: dark;
     --background: 240 10% 4%;
     --foreground: 0 0% 95%;
     --card: 240 8% 7%;
@@ -76,6 +78,11 @@
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 999px; border: 2px solid hsl(var(--background)); }
   ::-webkit-scrollbar-track { background: transparent; }
+
+  /* Native date picker — whole field clickable + visible calendar icon (color-scheme handles dark/light) */
+  input[type="date"] { cursor: pointer; }
+  input[type="date"]::-webkit-calendar-picker-indicator { cursor: pointer; opacity: .65; transition: opacity .15s; }
+  input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 }
 
 /* ============================================================

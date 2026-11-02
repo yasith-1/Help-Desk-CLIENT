@@ -29,6 +29,8 @@ export const routes: Routes = [
     loadComponent: () => import('./components/admin-categories.component').then(m => m.AdminCategoriesComponent) },
   { path: 'admin/roles', canActivate: [permGuard], data: { perm: 'roles.manage' },
     loadComponent: () => import('./components/admin-roles.component').then(m => m.AdminRolesComponent) },
+  { path: 'admin/reports', canActivate: [permGuard], data: { perm: 'reports.export' },
+    loadComponent: () => import('./components/reports.component').then(m => m.ReportsComponent) },
 
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' }
