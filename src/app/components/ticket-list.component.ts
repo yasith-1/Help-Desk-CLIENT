@@ -143,7 +143,7 @@ export class TicketListComponent implements OnInit {
   router = inject(Router);
 
   statuses = STATUSES; priorities = PRIORITIES;
-  q: TicketQuery = { sort: 'newest', page: 1, pageSize: 10 };
+  q: TicketQuery = { status: '', priority: '', sort: 'newest', page: 1, pageSize: 10 };
 
   page = signal<Paged<TicketListItem> | null>(null);
   categories = signal<Category[]>([]);
