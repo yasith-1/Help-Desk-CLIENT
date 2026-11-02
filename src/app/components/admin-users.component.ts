@@ -6,12 +6,13 @@ import { RoleService } from '../services/role.service';
 import { ToastService } from '../services/toast.service';
 import { AuthService } from '../services/auth.service';
 import { AvatarComponent } from './ui/avatar.component';
+import { PasswordInputComponent } from './ui/password-input.component';
 import { User, Role, CreateUserRequest } from '../models/models';
 
 @Component({
   selector: 'app-admin-users',
   standalone: true,
-  imports: [FormsModule, DatePipe, AvatarComponent],
+  imports: [FormsModule, DatePipe, AvatarComponent, PasswordInputComponent],
   template: `
     <div class="page-wrap">
       <div class="flex items-center justify-between mb-4">
@@ -31,7 +32,7 @@ import { User, Role, CreateUserRequest } from '../models/models';
             <div><label class="label">Email</label><input class="input" [(ngModel)]="f.email" type="email" /></div>
             <div><label class="label">Role</label><select class="select" [(ngModel)]="f.role">@for (r of roles(); track r) { <option [value]="r">{{ r }}</option> }</select></div>
             <div><label class="label">Username</label><input class="input" [(ngModel)]="f.username" /></div>
-            <div><label class="label">Password</label><input class="input" [(ngModel)]="f.password" type="password" /></div>
+            <div><label class="label">Password</label><ui-password [(ngModel)]="f.password" autocomplete="new-password" /></div>
           </div>
           <button class="btn-primary btn-sm mt-4" (click)="create()" [disabled]="saving()">{{ saving() ? 'Creating…' : 'Create user' }}</button>
         </div>

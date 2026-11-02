@@ -36,6 +36,17 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.api}/auth/register`, req).pipe(tap(r => this.saveSession(r)));
   }
 
+  // ── Forgot password (OTP) — pre-auth, no session saved ──────────────────────────
+  forgotPassword(email: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.api}/auth/forgot-password`, { email });
+  }
+  verifyOtp(email: string, otp: string): Observable<{ valid: boolean }> {
+    return this.http.post<{ valid: boolean }>(`${this.api}/auth/verify-otp`, { email, otp });
+  }
+  resetPassword(payload: { email: string; otp: string; newPassword: string; confirmPassword: string }): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.api}/auth/reset-password`, payload);
+  }
+
   // Role/permission වෙනස් වුණාම UI refresh කරන්න (re-login නැතුව)
   refreshPermissions() {
     if (!this.isLoggedIn()) return;

@@ -2,11 +2,12 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { PasswordInputComponent } from './ui/password-input.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, PasswordInputComponent],
   template: `
     <div class="min-h-screen grid place-items-center p-4 relative overflow-hidden">
       <div class="absolute inset-0 -z-10" style="background:radial-gradient(60% 50% at 50% 0%, hsl(217 91% 60% / .12), transparent 70%)"></div>
@@ -28,8 +29,11 @@ import { AuthService } from '../services/auth.service';
             <input class="input" [(ngModel)]="username" name="username" placeholder="admin" autocomplete="username" />
           </div>
           <div>
-            <label class="label">Password</label>
-            <input class="input" [(ngModel)]="password" name="password" type="password" placeholder="••••••" autocomplete="current-password" />
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="label mb-0">Password</label>
+              <a routerLink="/forgot-password" class="text-xs text-brand font-medium hover:underline">Forgot password?</a>
+            </div>
+            <ui-password [(ngModel)]="password" name="password" placeholder="••••••" autocomplete="current-password" />
           </div>
           <button class="btn-primary w-full" type="submit" [disabled]="loading()">{{ loading() ? 'Signing in…' : 'Sign in' }}</button>
         </form>

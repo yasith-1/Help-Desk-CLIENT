@@ -83,7 +83,9 @@
    ============================================================ */
 @layer components {
   /* Consistent page container — same spacing on every screen (responsive padding) */
-  .page-wrap { @apply w-full max-w-[1400px] mx-auto px-4 sm:px-6 py-5 sm:py-6; }
+  /* max-width scales up on large monitors so XL screens don't waste side space.
+     Laptops (≤1680px) keep the 1400px cap — unchanged. */
+  .page-wrap { @apply w-full max-w-[1400px] min-[1700px]:max-w-[1600px] min-[1920px]:max-w-[1780px] min-[2400px]:max-w-[2000px] mx-auto px-4 sm:px-6 py-5 sm:py-6; }
 
   .card { @apply rounded-xl border border-border bg-card text-card-foreground shadow-sm; }
 

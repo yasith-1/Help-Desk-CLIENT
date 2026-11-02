@@ -3,11 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '../services/toast.service';
+import { PasswordInputComponent } from './ui/password-input.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, PasswordInputComponent],
   template: `
     <div class="min-h-screen grid place-items-center p-4 relative overflow-hidden">
       <div class="absolute inset-0 -z-10" style="background:radial-gradient(60% 50% at 50% 0%, hsl(217 91% 60% / .12), transparent 70%)"></div>
@@ -22,7 +23,7 @@ import { ToastService } from '../services/toast.service';
           <div><label class="label">Full name</label><input class="input" [(ngModel)]="fullName" name="fullName" placeholder="Jane Doe" /></div>
           <div><label class="label">Email</label><input class="input" [(ngModel)]="email" name="email" type="email" placeholder="jane@example.com" /></div>
           <div><label class="label">Username</label><input class="input" [(ngModel)]="username" name="username" placeholder="janedoe" autocomplete="username" /></div>
-          <div><label class="label">Password</label><input class="input" [(ngModel)]="password" name="password" type="password" placeholder="min 6 characters" autocomplete="new-password" /></div>
+          <div><label class="label">Password</label><ui-password [(ngModel)]="password" name="password" placeholder="min 6 characters" autocomplete="new-password" /></div>
           <button class="btn-primary w-full" type="submit" [disabled]="loading()">{{ loading() ? 'Creating…' : 'Create account' }}</button>
         </form>
 

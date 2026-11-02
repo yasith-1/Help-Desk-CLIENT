@@ -5,6 +5,7 @@ import { permGuard } from './guards/role.guard';
 export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./components/login.component').then(m => m.LoginComponent) },
   { path: 'register', loadComponent: () => import('./components/register.component').then(m => m.RegisterComponent) },
+  { path: 'forgot-password', loadComponent: () => import('./components/forgot-password.component').then(m => m.ForgotPasswordComponent) },
 
   { path: 'dashboard', canActivate: [authGuard],
     loadComponent: () => import('./components/dashboard.component').then(m => m.DashboardComponent) },

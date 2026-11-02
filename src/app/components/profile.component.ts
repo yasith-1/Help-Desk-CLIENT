@@ -5,12 +5,13 @@ import { AuthService } from '../services/auth.service';
 import { ProfileService } from '../services/profile.service';
 import { ToastService } from '../services/toast.service';
 import { AvatarComponent } from './ui/avatar.component';
+import { PasswordInputComponent } from './ui/password-input.component';
 import { Profile } from '../models/models';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [FormsModule, DatePipe, AvatarComponent],
+  imports: [FormsModule, DatePipe, AvatarComponent, PasswordInputComponent],
   template: `
     <div class="max-w-3xl mx-auto p-4 sm:p-6 space-y-5 animate-fade-in">
 
@@ -87,16 +88,16 @@ import { Profile } from '../models/models';
           <form (ngSubmit)="savePassword()" class="space-y-4">
             <div>
               <label class="label" for="curpw">Current password</label>
-              <input id="curpw" class="input max-w-sm" type="password" [(ngModel)]="currentPassword" name="currentPassword" autocomplete="current-password" />
+              <ui-password inputId="curpw" inputClass="max-w-sm" [(ngModel)]="currentPassword" name="currentPassword" autocomplete="current-password" />
             </div>
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
                 <label class="label" for="newpw">New password</label>
-                <input id="newpw" class="input" type="password" [(ngModel)]="newPassword" name="newPassword" autocomplete="new-password" placeholder="min 6 characters" />
+                <ui-password inputId="newpw" [(ngModel)]="newPassword" name="newPassword" autocomplete="new-password" placeholder="min 6 characters" />
               </div>
               <div>
                 <label class="label" for="confpw">Confirm new password</label>
-                <input id="confpw" class="input" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" autocomplete="new-password" />
+                <ui-password inputId="confpw" [(ngModel)]="confirmPassword" name="confirmPassword" autocomplete="new-password" />
               </div>
             </div>
             <div class="flex justify-end">
